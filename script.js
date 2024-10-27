@@ -1,12 +1,19 @@
-function addSeries() {
+async function addSeries() {
     const seriesInput = document.getElementById('seriesInput');
     const seriesList = document.getElementById('seriesList');
 
     if (seriesInput.value.trim() !== "") {
-        const li = document.createElement('li');
-        li.textContent = seriesInput.value;
-        seriesList.appendChild(li);
-        seriesInput.value = ""; // Clear input
+        const response = await fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(seriesInput.value)}&apikey=YOUR_API_KEY`);
+        const data = await response.json();
+
+        if (data.Response === "True") {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${data.Title}</strong> (${data.Year}) - ${data.Genre}`;
+            seriesList.appendChild(li);
+            seriesInput.value = ""; // Clear input
+        } else {
+            alert("Series not found. Please try another title.");
+        }
     } else {
         alert("Please enter a series name.");
     }
