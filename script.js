@@ -3,7 +3,7 @@ async function addSeries() {
     const seriesList = document.getElementById('seriesList');
 
     if (seriesInput.value.trim() !== "") {
-        const response = await fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(seriesInput.value)}&apikey=YOUR_API_KEY`);
+        const response = await fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(seriesInput.value)}&apikey=4c8f70dd`);
         const data = await response.json();
 
         if (data.Response === "True") {
